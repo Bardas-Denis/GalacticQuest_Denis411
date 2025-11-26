@@ -1,0 +1,15 @@
+# Ignore Visual Studio temporary files
+.vs/
+*.user
+*.suo
+*.cache
+*.db
+
+# Build output
+bin/
+obj/
+
+# Other common ignores
+*.log
+*.tmp
+*.ide
