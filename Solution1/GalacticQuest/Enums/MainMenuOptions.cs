@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GalacticQuest
+namespace GalacticQuest.Enums
 {
-    enum Menu : int
+    enum MainMenuOptions: int
     {
-        Monsters = 1,
-        Exit = 2
+        Travel = 1,
+        Journal = 2,
+        Exit = 3
     }
 }
