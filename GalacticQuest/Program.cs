@@ -1,4 +1,6 @@
-﻿namespace GalacticQuest
+﻿using GalacticQuest.Models; // Add this at the top if not already present
+
+namespace GalacticQuest
 {
     internal class Program
     {
@@ -15,12 +17,18 @@
         {
             Console.Write("\n");
 
-            List<(string, int)> items = new List<(string, int)>() { ("Excalibur", 500), ("Tessaiga", 1000) };
+            // Fix: Convert (string, int) tuples to Item objects
+            List<Item> items = new List<Item>
+            {
+                new Item("Excalibur", 500),
+                new Item("Tessaiga", 1000)
+            };
             Player player = new Player(50, 1, items);
             //Player player = new Player(40, 2);
             //Player player = new Player(30);
             //Player player = new Player();
-
+            player.BuyItem(new Item("Dragon Slayer", 750));
+            player.SellItem(player.Items[0]);
             player.ShowProfile();
 
             player.UpdateHp(-60);
@@ -37,25 +45,32 @@
                 Console.WriteLine("Select your option and press Enter: \n 1.Travel \n 2.Journal \n 3.Exit \n");
                 int.TryParse(Console.ReadLine(), out int readOption);
 
-
-                switch (readOption)
+                try
                 {
-                    case (int)GameOptions.Monsters:
-                        OpenTravelMenu();
-                        break;
+                    switch (readOption)
+                    {
+                        case (int)GameOptions.Monsters:
+                            OpenTravelMenu();
+                            break;
 
-                    case (int)GameOptions.Journal:
-                        OpenJournalMenu();
-                        break;
+                        case (int)GameOptions.Journal:
+                            OpenJournalMenu();
+                            break;
 
-                    case (int)GameOptions.Exit:
-                        isAppRunning = false;
-                        break;
+                        case (int)GameOptions.Exit:
+                            isAppRunning = false;
+                            break;
 
-                    default:
-                        Console.WriteLine("-_-' Invalid Option");
-                        break;
+                        default:
+                            //Console.WriteLine("-_-' Invalid Option");
+                            throw new Exception("'-_-' Invalid Option");
+                            break;
 
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
                 }
             }
         }
