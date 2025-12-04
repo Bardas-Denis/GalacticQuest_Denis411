@@ -16,10 +16,16 @@
             Console.Write("\n");
 
             List<(string, int)> items = new List<(string, int)>() { ("Excalibur", 500), ("Tessaiga", 1000) };
-            Player player = new Player(50, 1, items);
+            Player player = new Player(50, 1, items, 10);
+            //Player player = new Player(50, 1, items);
             //Player player = new Player(40, 2);
             //Player player = new Player(30);
             //Player player = new Player();
+
+            player.ShowProfile();
+
+            (string, int) newItem = ("Dragon Slayer", 1500);
+            player.AddItem(newItem, 6);
 
             player.ShowProfile();
 
@@ -38,24 +44,31 @@
                 int.TryParse(Console.ReadLine(), out int readOption);
 
 
-                switch (readOption)
+                try
                 {
-                    case (int)GameOptions.Monsters:
-                        OpenTravelMenu();
-                        break;
+                    switch (readOption)
+                    {
+                        case 1:
+                            OpenTravelMenu();
+                            break;
 
-                    case (int)GameOptions.Journal:
-                        OpenJournalMenu();
-                        break;
+                        case 2:
+                            OpenJournalMenu();
+                            break;
 
-                    case (int)GameOptions.Exit:
-                        isAppRunning = false;
-                        break;
+                        case 3:
+                            isAppRunning = false;
+                            break;
 
-                    default:
-                        Console.WriteLine("-_-' Invalid Option");
-                        break;
+                        default:
+                            throw new Exception("Invalid Option");
 
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("(-_-') " + ex.Message);
+                    isAppRunning = false;
                 }
             }
         }
