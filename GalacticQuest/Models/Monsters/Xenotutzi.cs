@@ -1,4 +1,4 @@
-﻿namespace GalacticQuest.Monsters
+﻿namespace GalacticQuest.Models.Monsters
 {
     public class Xenotutzi : Monster
     {

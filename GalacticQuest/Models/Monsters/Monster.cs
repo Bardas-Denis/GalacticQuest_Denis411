@@ -1,4 +1,4 @@
-﻿namespace GalacticQuest.Monsters
+﻿namespace GalacticQuest.Models.Monsters
 {
     public abstract class Monster
     {
@@ -8,7 +8,7 @@
 
         public Monster()
         {
-            BattleCry();
+            //BattleCry();
         }
 
         public abstract void BattleCry();
