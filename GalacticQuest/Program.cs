@@ -11,14 +11,14 @@ namespace GalacticQuest
         {
             //Console.WriteLine("Hello, Galactic Quest!");
 
-            IList<Monster> monsters = new List<Monster>() { new Xenotutzi("monstrulet", 100, 20), new Ignifax("MONSTRU", 30, 30) };
-            foreach (var monster in monsters)
-            {
-                monster.SpecialAttack();
-                Console.WriteLine($"Hp: {monster.Hp} | Attack: {monster.Attack}");
-            }
+            //IList<Monster> monsters = new List<Monster>() { new Xenotutzi("monstrulet", 100, 20), new Ignifax("MONSTRU", 30, 30) };
+            //foreach (var monster in monsters)
+            //{
+            //    monster.SpecialAttack();
+            //    Console.WriteLine($"Hp: {monster.Hp} | Attack: {monster.Attack}");
+            //}
 
-            //OpenMainMenu();
+            OpenMainMenu();
         }
 
         internal static void OpenMainMenu()

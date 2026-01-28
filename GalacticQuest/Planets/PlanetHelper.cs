@@ -50,48 +50,53 @@ namespace GalacticQuest.Planets
             }
 
             Console.Write("\n");
-            Console.WriteLine($"Player has {Program.currentPlayer.Hp} HP and {Program.currentPlayer.Attack} Attack points");
-            Console.WriteLine($"You are facing off against {monster.Name} with {monster.Hp} HP and {monster.Attack} Attack points");
-
-            // select random number for player's attack value
-            int randomAttackPlayer = RandomNumberGenerator.Next(0, Program.currentPlayer.Attack);
-
-            // select random number for monster's attack value
-            int randomMonsterAttack = RandomNumberGenerator.Next(0, monster.Attack);
-            Console.Write("\n");
-
-            if (randomAttackPlayer >= randomMonsterAttack)
+            while (Program.currentPlayer.Hp > 0 && monster.Hp > 0)
             {
-                Console.WriteLine($"Player WON the battle against {monster.Name} !!!!");
+                Console.WriteLine("\n");
+                Console.WriteLine($"Player: {Program.currentPlayer.Hp} HP | {monster.Name}: {monster.Hp} HP");
+                Console.WriteLine("Choose your action: [1] Attack  [2] Run");
+                string choice = Console.ReadLine() ?? "";
 
+                if (choice == "1")
+                {
+                    Console.WriteLine($"You attack the {monster.Name}!");
+                    monster.Hp -= Program.currentPlayer.Attack;
+                    Console.WriteLine($"You dealt {Program.currentPlayer.Attack} damage.");
+                }
+                else if (choice == "2")
+                {
+                    int runAttempt = Random.Shared.Next(1, 11);
+                    int failThreshold = 4;
+
+                    if (runAttempt >= failThreshold)
+                    {
+                        Console.WriteLine("You successfully ran away!");
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You failed to escape! The monster blocks your path.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice! You stumble, giving the monster an opening.");
+                }
+
+                if (monster.Hp <= 0) break;
+
+                Console.WriteLine($"{monster.Name} attacks you!");
+                Program.currentPlayer.UpdateHp(-monster.Attack);
+                Console.WriteLine($"The {monster.Name} dealt {monster.Attack} damage.");
             }
-            else
+            if (Program.currentPlayer.Hp <= 0)
             {
-                Console.WriteLine($"Nooo you lost against {monster.Name}.");
-
+                Console.WriteLine("\nNooo you lost... Game Over.");
             }
-
-            Console.Write("\n");
-            Console.WriteLine($"Player dealt {randomAttackPlayer} Damage");
-            Console.WriteLine($"Monster {monster.Name} dealt {randomMonsterAttack} Damage");
-            Console.Write("\n");
-
-            Program.currentPlayer.UpdateHp(-randomMonsterAttack);
-
-            monster.Hp -= randomAttackPlayer;
-            if (monster.Hp <= 0)
+            else if (monster.Hp <= 0)
             {
+                Console.WriteLine($"\nPlayer WON the battle against {monster.Name} !!!!");
                 monster.OnDeath();
-            }
-
-            if (Program.currentPlayer.Hp > 0)
-            {
-                Console.WriteLine($"Player's current HP : {Program.currentPlayer.Hp}");
-            }
-
-            if (monster.Hp > 0)
-            {
-                Console.WriteLine($"Monster {monster.Name}'s current HP : {monster.Hp}");
             }
         }
 
